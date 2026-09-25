@@ -1,0 +1,1338 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CivicPulse — Smart Citizen Grievance Portal</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="styles.css">
+
+<style>
+
+/* =========================================================
+   CLEANER COMPLAINT TIMELINE TYPOGRAPHY
+   ========================================================= */
+
+.timeline .tl {
+  font-style: normal;
+}
+
+.timeline .tl strong {
+  font-size: 12px;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.timeline .tl small {
+  display: block;
+  margin-top: 7px;
+  font-size: 11px;
+  line-height: 1.55;
+  font-weight: 500;
+  font-style: normal;
+  color: #718094;
+}
+
+.dark .timeline .tl small {
+  color: #9aabc0;
+}
+
+
+/* =========================================================
+   CIVICPULSE PAGE ADDITIONS
+   styles.css remains unchanged
+   ========================================================= */
+
+.info-grid,
+.pulse-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.info-card,
+.pulse-card {
+  background: var(--card, #fff);
+  border: 1px solid #e0e7ef;
+  border-radius: 18px;
+  padding: 22px;
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease;
+}
+
+.dark .info-card,
+.dark .pulse-card {
+  background: #101a2a;
+  border-color: #223148;
+}
+
+.info-card:hover,
+.pulse-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 40px rgba(20,40,70,.09);
+}
+
+.info-number {
+  font: 700 12px "Space Grotesk";
+  letter-spacing: .08em;
+  color: #718094;
+}
+
+.info-card h3,
+.pulse-card h3 {
+  font: 700 20px "Space Grotesk";
+  margin: 9px 0;
+}
+
+.info-card p,
+.pulse-card p {
+  font-size: 12px;
+  line-height: 1.7;
+  color: #718094;
+  margin: 0;
+}
+
+.dark .info-card p,
+.dark .pulse-card p {
+  color: #9aabc0;
+}
+
+.pulse-meta {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.pulse-meta span {
+  font-size: 9px;
+  font-weight: 800;
+  padding: 6px 9px;
+  border-radius: 999px;
+  background: #eef3f8;
+}
+
+.dark .pulse-meta span {
+  background: #18263a;
+  color: #b9c7d8;
+}
+
+.pulse-empty {
+  text-align: center;
+  padding: 35px;
+  color: #718094;
+}
+
+.category-help {
+  display: block;
+  font-size: 10px;
+  color: #7a889a;
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+.about-band {
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: 18px;
+  align-items: stretch;
+}
+
+.quote-card {
+  background: linear-gradient(135deg, #102b58, #123b7a);
+  color: #fff;
+  border-radius: 20px;
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+}
+
+.quote-card:after {
+  content: "";
+  position: absolute;
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  right: -70px;
+  top: -80px;
+  background: rgba(255,255,255,.08);
+}
+
+.quote-card p {
+  font: 600 22px/1.35 "Space Grotesk";
+  margin: 8px 0 18px;
+}
+
+.quote-card small {
+  color: #cbd8e8;
+  font-size: 10px;
+}
+
+.footer-disclaimer {
+  max-width: 720px;
+}
+
+.report-again {
+  margin-top: 9px;
+}
+
+.live-dot {
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   RESPONSIVE PAGE ADDITIONS
+   ========================================================= */
+
+@media(max-width:850px) {
+
+  .info-grid,
+  .pulse-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-band {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<!-- =======================================================
+     TOP NAVIGATION
+     ======================================================= -->
+
+<header class="topbar">
+
+  <div class="brand">
+
+    <div class="brand-mark">CP</div>
+
+    <div>
+      <strong>CivicPulse</strong>
+      <span>Smart Citizen Grievance Portal</span>
+    </div>
+
+  </div>
+
+
+  <nav>
+
+    <a href="#home" >Home</a>
+
+    <a href="#how-it-works" >How It Works</a>
+
+    <a href="#report" >Report Issue</a>
+
+    <a href="#track" >Track</a>
+
+    <a href="#city-pulse" >City Pulse</a>
+
+    <a href="#awareness">Awareness</a>
+
+    <a href="/admin" target="_blank">Admin</a>
+
+  </nav>
+
+
+  <button
+    class="icon-btn"
+    id="themeBtn"
+    title="Toggle theme"
+    aria-label="Toggle theme"
+  >
+    ☾
+  </button>
+
+</header>
+
+
+<main>
+
+
+<!-- =======================================================
+     HERO
+     ======================================================= -->
+
+<section class="hero" id="home">
+
+  <div class="hero-copy reveal">
+
+    <div class="eyebrow">
+      SMART GOVERNANCE • DIGITAL INDIA
+    </div>
+
+
+    <h1>
+      Your city.<br>
+      <span>Your voice.</span><br>
+      Your impact.
+    </h1>
+
+
+    <p>
+      Report local civic problems in minutes, track every update,
+      and turn useful citizen evidence into action.
+    </p>
+
+
+    <div class="hero-actions">
+
+      <a class="btn primary" href="#report">
+        Report a civic issue <b>→</b>
+      </a>
+
+      <a class="btn ghost" href="#track">
+        Track complaint
+      </a>
+
+    </div>
+
+
+    <div class="trust-row">
+
+      <span>● Secure reporting</span>
+
+      <span>● Transparent tracking</span>
+
+      <span>● Citizen-first</span>
+
+    </div>
+
+  </div>
+
+
+  <div class="hero-panel reveal hero-interactive">
+
+    <div class="panel-top">
+
+      <span>COMMUNITY SNAPSHOT</span>
+
+      <span class="live-dot">
+        ● Updated online
+      </span>
+
+    </div>
+
+
+    <div class="pulse-number">
+      24<span>/7</span>
+    </div>
+
+
+    <p>
+      One digital channel to report, track and resolve civic issues.
+    </p>
+
+
+    <div class="mini-flow">
+
+      <div>REPORT</div>
+
+      <i>→</i>
+
+      <div>TRACK</div>
+
+      <i>→</i>
+
+      <div>RESOLVE</div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =======================================================
+     PUBLIC STATISTICS
+     ======================================================= -->
+
+<section class="stats-strip reveal">
+
+  <div>
+    <strong id="statTotal">—</strong>
+    <span>Complaints reported</span>
+  </div>
+
+
+  <div>
+    <strong id="statResolved">—</strong>
+    <span>Resolved cases</span>
+  </div>
+
+
+  <div>
+    <strong id="statActive">—</strong>
+    <span>Active cases</span>
+  </div>
+
+
+  <div>
+    <strong id="statCategories">—</strong>
+    <span>Issue categories</span>
+  </div>
+
+</section>
+
+
+
+<!-- =======================================================
+     HOW IT WORKS
+     ======================================================= -->
+
+<section
+  class="section reveal-section"
+  id="how-it-works"
+>
+
+  <div class="section-heading">
+
+    <div>
+
+      <div class="eyebrow">
+        01 / HOW IT WORKS
+      </div>
+
+      <h2>
+        From observation to resolution.
+      </h2>
+
+    </div>
+
+
+    <p>
+      A simple five-step journey keeps every civic report
+      structured and traceable.
+    </p>
+
+  </div>
+
+
+  <div class="info-grid">
+
+
+    <article class="info-card">
+
+      <div class="info-number">
+        01 / REPORT
+      </div>
+
+      <h3>
+        Spot an issue
+      </h3>
+
+      <p>
+        Describe the civic problem clearly so it can be
+        understood without guesswork.
+      </p>
+
+    </article>
+
+
+    <article class="info-card">
+
+      <div class="info-number">
+        02 / LOCATE
+      </div>
+
+      <h3>
+        Add the location
+      </h3>
+
+      <p>
+        Provide the street, area and an optional landmark
+        to make the report actionable.
+      </p>
+
+    </article>
+
+
+    <article class="info-card">
+
+      <div class="info-number">
+        03 / SUBMIT
+      </div>
+
+      <h3>
+        Attach evidence
+      </h3>
+
+      <p>
+        Add a relevant photo when useful, then submit
+        the report securely.
+      </p>
+
+    </article>
+
+
+    <article class="info-card">
+
+      <div class="info-number">
+        04 / TRACK
+      </div>
+
+      <h3>
+        Follow the pulse
+      </h3>
+
+      <p>
+        Use the generated Complaint ID to see status
+        updates and the complaint history.
+      </p>
+
+    </article>
+
+
+    <article class="info-card">
+
+      <div class="info-number">
+        05 / RESOLVE
+      </div>
+
+      <h3>
+        Close the loop
+      </h3>
+
+      <p>
+        When action is completed, the complaint timeline
+        records the resolution status.
+      </p>
+
+    </article>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =======================================================
+     REPORT ISSUE
+     ======================================================= -->
+
+<section
+  class="section reveal-section"
+  id="report"
+>
+
+  <div class="section-heading">
+
+    <div>
+
+      <div class="eyebrow">
+        02 / REPORT THE PULSE
+      </div>
+
+      <h2>
+        Tell us what needs fixing.
+      </h2>
+
+    </div>
+
+
+    <p>
+      Every report becomes a traceable complaint with a
+      unique ID.
+    </p>
+
+  </div>
+
+
+  <div class="form-layout">
+
+
+    <!-- REPORT FORM -->
+
+    <form
+      id="complaintForm"
+      class="card form-card"
+      enctype="multipart/form-data"
+    >
+
+      <div class="progress">
+        <span id="progressBar"></span>
+      </div>
+
+
+      <div class="form-grid">
+
+
+        <!-- NAME -->
+
+        <label>
+
+          Full name *
+
+          <input
+            name="name"
+            required
+            maxlength="100"
+            autocomplete="name"
+            placeholder="Enter your full name"
+          >
+
+        </label>
+
+
+        <!-- PHONE -->
+
+        <label>
+
+          Mobile number *
+
+          <input
+            name="phone"
+            required
+            maxlength="10"
+            inputmode="numeric"
+            autocomplete="tel"
+            placeholder="10-digit mobile number"
+          >
+
+        </label>
+
+
+        <!-- EMAIL -->
+
+        <label>
+
+          Email
+
+          <input
+            name="email"
+            type="email"
+            maxlength="120"
+            autocomplete="email"
+            placeholder="name@example.com"
+          >
+
+        </label>
+
+
+        <!-- CATEGORY -->
+
+        <label>
+
+          Problem category *
+
+          <select
+            name="category"
+            id="category"
+            required
+          >
+
+            <option value="">
+              Select a category
+            </option>
+
+            <option>
+              Pothole
+            </option>
+
+            <option>
+              Streetlight
+            </option>
+
+            <option>
+              Garbage
+            </option>
+
+            <option>
+              Water Leakage
+            </option>
+
+            <option>
+              Road Damage
+            </option>
+
+            <option>
+              Drainage
+            </option>
+
+            <option>
+              Other
+            </option>
+
+          </select>
+
+
+          <small
+            class="category-help"
+            id="categoryHelp"
+          >
+            Choose the issue type that best matches the problem.
+          </small>
+
+        </label>
+
+
+        <!-- LOCATION -->
+
+        <label class="wide">
+
+          Location details *
+
+          <input
+            name="location"
+            required
+            maxlength="255"
+            placeholder="Street, area, city"
+          >
+
+        </label>
+
+
+        <!-- LANDMARK -->
+
+        <label>
+
+          Landmark
+
+          <input
+            name="landmark"
+            maxlength="150"
+            placeholder="Nearby landmark (optional)"
+          >
+
+        </label>
+
+
+        <!-- DESCRIPTION -->
+
+        <label class="wide">
+
+          Describe the issue *
+
+          <textarea
+            name="description"
+            id="description"
+            required
+            maxlength="1000"
+            placeholder="Explain what happened, where it is, and why it needs attention."
+          ></textarea>
+
+
+          <small>
+            <span id="count">0</span>/1000
+          </small>
+
+        </label>
+
+
+        <!-- PHOTO -->
+
+        <label class="wide upload-box">
+
+          <span>
+            📷 Civic evidence
+          </span>
+
+
+          <input
+            id="photo"
+            name="photo"
+            type="file"
+            accept="image/png,image/jpeg,image/webp"
+          >
+
+
+          <small>
+            Optional • JPG/PNG/WEBP • max 5 MB
+          </small>
+
+
+          <img
+            id="preview"
+            class="preview"
+            alt="Selected evidence preview"
+          >
+
+        </label>
+
+
+      </div>
+
+
+      <!-- FORM ACTIONS -->
+
+      <div class="form-actions">
+
+        <span class="privacy-note">
+          🔒 Your information is used only to process this complaint.
+        </span>
+
+
+        <button
+          class="btn primary"
+          type="submit"
+          id="submitBtn"
+        >
+          Submit complaint <b>→</b>
+        </button>
+
+      </div>
+
+    </form>
+
+
+
+    <!-- WHAT HAPPENS NEXT -->
+
+    <aside class="side-card">
+
+      <div class="side-icon">
+        ✓
+      </div>
+
+
+      <h3>
+        What happens next?
+      </h3>
+
+
+      <div class="step">
+
+        <b>01</b>
+
+        <span>
+
+          <strong>
+            Complaint registered
+          </strong>
+
+          <small>
+            You receive a unique Complaint ID.
+          </small>
+
+        </span>
+
+      </div>
+
+
+      <div class="step">
+
+        <b>02</b>
+
+        <span>
+
+          <strong>
+            Issue assigned
+          </strong>
+
+          <small>
+            The complaint is routed for action.
+          </small>
+
+        </span>
+
+      </div>
+
+
+      <div class="step">
+
+        <b>03</b>
+
+        <span>
+
+          <strong>
+            Resolution tracked
+          </strong>
+
+          <small>
+            Follow progress online at any time.
+          </small>
+
+        </span>
+
+      </div>
+
+    </aside>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =======================================================
+     TRACK COMPLAINT
+     ======================================================= -->
+
+<section
+  class="section dark-section reveal-section"
+  id="track"
+>
+
+  <div class="section-heading">
+
+    <div>
+
+      <div class="eyebrow">
+        03 / TRACK THE PULSE
+      </div>
+
+      <h2>
+        Never lose sight of your complaint.
+      </h2>
+
+    </div>
+
+
+    <p>
+      Enter your Complaint ID to view its latest status
+      and complete history.
+    </p>
+
+  </div>
+
+
+  <div class="track-box">
+
+
+    <div class="track-search">
+
+      <input
+        id="trackId"
+        placeholder="e.g. CP-20260915-A1B2C"
+        autocomplete="off"
+        aria-label="Complaint ID"
+      >
+
+
+      <button
+        class="btn primary"
+        id="trackBtn"
+      >
+        Track complaint
+      </button>
+
+    </div>
+
+
+    <div
+      id="trackResult"
+      class="track-result empty"
+    >
+
+      <div class="empty-icon">
+        ◎
+      </div>
+
+      <h3>
+        Ready to track
+      </h3>
+
+      <p>
+        Your complaint timeline will appear here.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =======================================================
+     CITY PULSE
+     ======================================================= -->
+
+<section
+  class="section reveal-section"
+  id="city-pulse"
+>
+
+  <div class="section-heading">
+
+    <div>
+
+      <div class="eyebrow">
+        04 / CITY PULSE
+      </div>
+
+      <h2>
+        Community snapshot.
+      </h2>
+
+    </div>
+
+
+    <p>
+      A public view of recent civic activity using
+      non-sensitive complaint information.
+    </p>
+
+  </div>
+
+
+  <div
+    id="pulseGrid"
+    class="pulse-grid"
+  >
+
+    <div class="pulse-empty">
+      Loading community snapshot…
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =======================================================
+     CIVIC AWARENESS
+     ======================================================= -->
+
+<section
+  class="section reveal-section"
+  id="awareness"
+>
+
+  <div class="section-heading">
+
+    <div>
+
+      <div class="eyebrow">
+        05 / CIVIC AWARENESS
+      </div>
+
+      <h2>
+        Small actions. Better cities.
+      </h2>
+
+    </div>
+
+
+    <p>
+      Responsible citizen participation makes digital
+      governance stronger.
+    </p>
+
+  </div>
+
+
+  <div class="awareness-grid">
+
+
+    <article class="awareness-card">
+
+      <div>
+        🛣️
+      </div>
+
+      <h3>
+        Report precisely
+      </h3>
+
+      <p>
+        Give clear location details and useful descriptions
+        so teams can understand the issue.
+      </p>
+
+    </article>
+
+
+    <article class="awareness-card">
+
+      <div>
+        📸
+      </div>
+
+      <h3>
+        Add evidence
+      </h3>
+
+      <p>
+        A relevant photo can help communicate the issue
+        before a site visit.
+      </p>
+
+    </article>
+
+
+    <article class="awareness-card">
+
+      <div>
+        🔎
+      </div>
+
+      <h3>
+        Track responsibly
+      </h3>
+
+      <p>
+        Use your Complaint ID to follow progress instead
+        of submitting duplicate reports.
+      </p>
+
+    </article>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =======================================================
+     ABOUT CIVICPULSE
+     ======================================================= -->
+
+<section
+  class="section reveal-section"
+  id="about"
+>
+
+  <div class="section-heading">
+
+    <div>
+
+      <div class="eyebrow">
+        06 / ABOUT CIVICPULSE
+      </div>
+
+      <h2>
+        Bridging citizens and smart governance.
+      </h2>
+
+    </div>
+
+
+    <p>
+      CivicPulse is designed as a student competition
+      prototype focused on structured civic participation.
+    </p>
+
+  </div>
+
+
+  <div class="about-band">
+
+
+    <!-- CIVIC LOOP -->
+
+    <div class="quote-card">
+
+      <div class="eyebrow">
+        THE CIVIC LOOP
+      </div>
+
+
+      <p>
+        “Observe an issue. Capture the evidence.
+        Track the progress. Improve the community.”
+      </p>
+
+
+      <small>
+        A people-centered approach to digital civic reporting.
+      </small>
+
+    </div>
+
+
+
+    <!-- WHY IT MATTERS -->
+
+    <div class="info-card">
+
+      <div class="info-number">
+        WHY IT MATTERS
+      </div>
+
+
+      <h3>
+        Participation with visibility
+      </h3>
+
+
+      <p>
+        Clear location details, evidence, unique complaint
+        IDs and status timelines create a structured bridge
+        between citizen reports and administrative action.
+      </p>
+
+
+      <div class="pulse-meta">
+
+        <span>
+          SMART GOVERNANCE
+        </span>
+
+        <span>
+          TRANSPARENCY
+        </span>
+
+        <span>
+          PARTICIPATION
+        </span>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+</main>
+
+
+
+<!-- =======================================================
+     FOOTER
+     ======================================================= -->
+
+<footer>
+
+  <div class="brand">
+
+    <div class="brand-mark">
+      CP
+    </div>
+
+
+    <div>
+
+      <strong>
+        CivicPulse
+      </strong>
+
+      <span>
+        Smart Citizen Grievance Portal
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <p class="footer-disclaimer">
+
+    Student competition prototype for educational purposes.
+    CivicPulse is not affiliated with any official government
+    department or authority.
+
+  </p>
+
+</footer>
+
+
+
+<!-- =======================================================
+     TOAST
+     ======================================================= -->
+
+<div
+  id="toast"
+  class="toast"
+></div>
+
+
+
+<!-- =======================================================
+     SUCCESS MODAL
+     ======================================================= -->
+
+<div
+  id="modal"
+  class="modal"
+>
+
+  <div class="modal-card">
+
+
+    <button
+      class="modal-close"
+      id="modalClose"
+      aria-label="Close"
+    >
+      ×
+    </button>
+
+
+    <div class="success-icon">
+      ✓
+    </div>
+
+
+    <div class="eyebrow">
+      COMPLAINT REGISTERED
+    </div>
+
+
+    <h2>
+      Your voice has been recorded.
+    </h2>
+
+
+    <p>
+      Your unique Complaint ID is:
+    </p>
+
+
+    <div
+      class="complaint-code"
+      id="newId"
+    >
+      CP-
+    </div>
+
+
+    <button
+      class="btn ghost full"
+      id="copyId"
+    >
+      Copy Complaint ID
+    </button>
+
+
+    <a
+      class="btn primary full"
+      id="trackNew"
+    >
+      Track this complaint →
+    </a>
+
+
+    <button
+      class="btn ghost full report-again"
+      id="reportAgain"
+    >
+      Report another issue
+    </button>
+
+
+  </div>
+
+</div>
+
+
+
+<!-- =======================================================
+     JAVASCRIPT
+     ======================================================= -->
+
+<script src="app.js"></script>
+
+</body>
+</html>

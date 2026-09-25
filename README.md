@@ -49,12 +49,14 @@ python app.py```
 Open:
 Citizen portal: http://127.0.0.1:5000/
 Admin: http://127.0.0.1:5000/admin
-Demo admin
+
+Demo Admin Dashboard Credentials:
 
 Username: admin
 Password: Admin@123
 
-Change this before any real deployment.
+Note: These credentials are for demonstration/testing only.
+Change them before any real deployment.
 
 Competition demo flow
 Submit a complaint as a citizen.
